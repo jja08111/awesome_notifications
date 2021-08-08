@@ -4,6 +4,7 @@ import android.app.Application;
 import android.app.Application.ActivityLifecycleCallbacks;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -185,7 +186,16 @@ public class AwesomeNotificationsPlugin
         LocalBroadcastManager manager = LocalBroadcastManager.getInstance(applicationContext);
         manager.registerReceiver(this, intentFilter);
 
-        mediaSession = new MediaSessionCompat(applicationContext, "PUSH_MEDIA");
+        mediaSession = new MediaSessionCompat(
+                applicationContext,
+                "PUSH_MEDIA",
+                null,
+                PendingIntent.getBroadcast(
+                        applicationContext,
+                        0,
+                        new Intent(Intent.ACTION_MEDIA_BUTTON),
+                        PendingIntent.FLAG_IMMUTABLE)
+        );
 
         getApplicationLifeCycle();
 

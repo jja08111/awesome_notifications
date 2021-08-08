@@ -76,14 +76,14 @@ public class NotificationBuilder {
                 context,
                 pushNotification.content.id,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
         );
 
         PendingIntent pendingDeleteIntent = PendingIntent.getBroadcast(
                 context,
                 pushNotification.content.id,
                 deleteIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT
+                PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_CANCEL_CURRENT
         );
 
         NotificationCompat.Builder builder = getNotificationBuilderFromModel(context, pushNotification, pendingIntent, pendingDeleteIntent);
@@ -431,7 +431,7 @@ public class NotificationBuilder {
                             context,
                             pushNotification.content.id,
                             actionIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
                     );
 
                 } else if (buttonProperties.buttonType == ActionButtonType.DisabledAction) {
@@ -440,7 +440,7 @@ public class NotificationBuilder {
                             context,
                             pushNotification.content.id,
                             actionIntent,
-                            0
+                            PendingIntent.FLAG_IMMUTABLE
                     );
 
                 } else {
@@ -457,7 +457,7 @@ public class NotificationBuilder {
                             context,
                             pushNotification.content.id,
                             actionIntent,
-                            PendingIntent.FLAG_UPDATE_CURRENT
+                            PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT
                     );
                 }
             }
